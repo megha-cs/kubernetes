@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysqldb-deployment
+  labels:
+    app: database
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: database
+  template:
+    metadata:
+      name: mysqldb
+      labels:
+        app: database
+    spec:
+      containers:
+      - name: mysql
+        image: meghacs/mysql:1.2
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: Qwerty@12345
+        ports:
+        - containerPort: 3306
+        volumeMounts:
+        - name: persistent-volume
+          mountPath: /var/lib/mysql
+      nodeSelector:
+        type: backend
+      volumes:
+      - name: persistent-volume
+        hostPath:
+          path: /var/mysql_data_backup
+          type: DirectoryOrCreate

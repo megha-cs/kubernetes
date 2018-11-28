@@ -1,0 +1,3 @@
+FROM tomcat
+
+ADD LoginWebApp.war /usr/local/tomcat/webapps/LoginWebApp.war

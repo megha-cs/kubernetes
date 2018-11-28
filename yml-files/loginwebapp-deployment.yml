@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: loginwebapp
+  labels:
+    app: login
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: login
+  template:
+    metadata:
+      labels:
+        app: login
+    spec:
+      containers:
+      - name: loginwebapp
+        image: meghacs/webapp:1.0
+        ports:
+        - containerPort: 8080
